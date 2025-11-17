@@ -1,0 +1,96 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "lockName": {
+      "type": "string",
+      "defaultValue": "Lock-CanNotDelete"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Authorization/policyDefinitions",
+      "apiVersion": "2021-06-01",
+      "name": "Locks-Policy-VM",
+      "properties": {
+        "policyType": "Custom",
+        "mode": "Indexed",
+        "displayName": "Locks-Policy-VM",
+        "parameters": {
+          "lockName": {
+            "type": "String",
+            "defaultValue": "Lock-CanNotDelete"
+          }
+        },
+        "policyRule": {
+          "if": {
+            "allOf": [
+              {
+                "field": "type",
+                "equals": "Microsoft.Compute/virtualMachines"
+              },
+              {
+                "count": {
+                  "field": "Microsoft.Authorization/locks[*]",
+                  "where": {
+                    "field": "Microsoft.Authorization/locks[*].level",
+                    "equals": "CanNotDelete"
+                  }
+                },
+                "equals": 0
+              }
+            ]
+          },
+          "then": {
+            "effect": "deployIfNotExists",
+            "details": {
+              "type": "Microsoft.Authorization/locks",
+              "name": "[parameters('lockName')]",
+              "roleDefinitionIds": [
+                "/providers/Microsoft.Authorization/roleDefinitions/fd9fdc62-7f21-4a5b-9f39-2f4e5a5d4700"
+              ],
+              "deployment": {
+                "properties": {
+                  "mode": "incremental",
+                  "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "resources": [
+                      {
+                        "type": "Microsoft.Authorization/locks",
+                        "apiVersion": "2017-04-01",
+                        "name": "[parameters('lockName')]",
+                        "properties": {
+                          "level": "CanNotDelete",
+                          "notes": "Lock enforced by Azure Policy"
+                        },
+                        "scope": "[field('fullName')]"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Authorization/policyAssignments",
+      "apiVersion": "2021-06-01",
+      "name": "Locks-Policy-VM-Assignment",
+      "dependsOn": [
+        "Microsoft.Authorization/policyDefinitions/Locks-Policy-VM"
+      ],
+      "properties": {
+        "displayName": "Locks-Policy-VM Assignment",
+        "policyDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/policyDefinitions', 'Locks-Policy-VM')]",
+        "parameters": {
+          "lockName": {
+            "value": "[parameters('lockName')]"
+          }
+        }
+      }
+    }
+  ]
+}
