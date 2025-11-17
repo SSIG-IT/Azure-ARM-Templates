@@ -57,6 +57,9 @@
               "deployment": {
                 "properties": {
                   "mode": "incremental",
+                  "expressionEvaluationOptions": {
+                    "scope": "inner"
+                  },
                   "template": {
                     "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
                     "contentVersion": "1.0.0.0",
@@ -89,7 +92,7 @@
       ],
       "properties": {
         "displayName": "Locks-Policy-VM Assignment",
-        "description": "Assigns the policy that installs CanNotDelete locks on VMs.",
+        "description": "Applies the lock policy to all virtual machines.",
         "policyDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/policyDefinitions', 'Locks-Policy-VM')]",
         "parameters": {
           "lockName": {
