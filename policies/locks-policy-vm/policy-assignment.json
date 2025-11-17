@@ -1,6 +1,7 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
+  "location": "germanywestcentral",
   "parameters": {
     "lockName": {
       "type": "string",
@@ -16,10 +17,14 @@
         "policyType": "Custom",
         "mode": "Indexed",
         "displayName": "Locks-Policy-VM",
+        "description": "Installs a CanNotDelete lock on all existing and new virtual machines.",
         "parameters": {
           "lockName": {
             "type": "String",
-            "defaultValue": "Lock-CanNotDelete"
+            "defaultValue": "Lock-CanNotDelete",
+            "metadata": {
+              "displayName": "Lock Name"
+            }
           }
         },
         "policyRule": {
@@ -54,6 +59,7 @@
                   "mode": "incremental",
                   "template": {
                     "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
                     "resources": [
                       {
                         "type": "Microsoft.Authorization/locks",
@@ -83,6 +89,7 @@
       ],
       "properties": {
         "displayName": "Locks-Policy-VM Assignment",
+        "description": "Assigns the policy that installs CanNotDelete locks on VMs.",
         "policyDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/policyDefinitions', 'Locks-Policy-VM')]",
         "parameters": {
           "lockName": {
