@@ -7,19 +7,6 @@
 
 # Locks-Policy-RG
 
-## Run via Azure CLI
-
-To deploy the Resource Group Lock Policy, Automation Account, Runbook, and daily remediation schedule, simply open the **Azure Cloud Shell** or any terminal with the Azure CLI installed.
-
-Then execute the following command:
-
-```bash
-curl -O https://raw.githubusercontent.com/SSIG-IT/Azure-ARM-Templates/main/policies/locks-policy-vm/rg-lock-policy.sh \
-  && chmod +x rg-lock-policy.sh \
-  && ./rg-lock-policy.sh
-
-
- # Locks-Policy-RG
 
 This module deploys a complete automated governance setup for enforcing **CanNotDelete** locks on all Azure Resource Groups.
 
@@ -44,8 +31,10 @@ You can run this solution directly from the **Azure Cloud Shell** or any termina
 
 Run the following command:
 
+
+Then execute the following command:
+
 ```bash
 curl -O https://raw.githubusercontent.com/SSIG-IT/Azure-ARM-Templates/main/policies/locks-policy-vm/rg-lock-policy.sh \
   && chmod +x rg-lock-policy.sh \
   && ./rg-lock-policy.sh
- 
