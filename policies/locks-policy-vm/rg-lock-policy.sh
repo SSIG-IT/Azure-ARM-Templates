@@ -375,7 +375,7 @@ Write-Output "⏱ Erstelle neuen Schedule Daily-21h…"
 New-AzAutomationSchedule `
     -ResourceGroupName $rg `
     -AutomationAccountName $aa `
-    -Name "Daily-21h" `
+    -Name "Daily-22h" `
     -StartTime (Get-Date "21:00" -Format "yyyy-MM-ddTHH:mm:ss") `
     -DayInterval 1 `
     -TimeZone "Europe/Berlin"
