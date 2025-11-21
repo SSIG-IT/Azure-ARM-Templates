@@ -7,10 +7,7 @@
 
 # Locks-Policy-VM
 
-curl -O https://raw.githubusercontent.com/SSIG-IT/Azure-ARM-Templates/refs/heads/main/policies/locks-policy-vm/rg-lock-policy.sh && chmod +x rg-lock-policy.sh && ./rg-lock-policy.sh
-
-
-## 🚀 Run via Azure CLI
+## Run via Azure CLI
 
 To deploy the Resource Group Lock Policy, Automation Account, Runbook, and daily remediation schedule, simply open the **Azure Cloud Shell** or any terminal with the Azure CLI installed.
 
