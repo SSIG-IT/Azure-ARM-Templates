@@ -7,5 +7,4 @@
 
 # Locks-Policy-VM
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](
-https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FSSIG-IT%2FAzure-ARM-Templates%2Fmain%2Fpolicies%2Flocks-policy-vm%2Fpolicy-assignment.json)
+curl -O https://raw.githubusercontent.com/SSIG-IT/Azure-ARM-Templates/refs/heads/main/policies/locks-policy-vm/rg-lock-policy.sh && chmod +x rg-lock-policy.sh && ./rg-lock-policy.sh
