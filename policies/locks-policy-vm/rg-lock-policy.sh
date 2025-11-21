@@ -350,6 +350,13 @@ az automation runbook replace-content \
   --name $RUNBOOK_NAME \
   --content @remediate.ps1
 
+echo "📦 Veröffentliche Runbook…"
+
+az automation runbook publish \
+  --automation-account-name $AA_NAME \
+  --resource-group $AA_RG \
+  --name $RUNBOOK_NAME
+
 echo ""
 
 
