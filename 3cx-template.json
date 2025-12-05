@@ -285,7 +285,7 @@
                         "publisher": "3cx-pbx",
                         "offer": "3cx-pbx",
                         "sku": "3cx",
-                        "version": "latest"
+                        "version": "20.0.8.878"
                     }
                 },
                 "networkProfile": {
